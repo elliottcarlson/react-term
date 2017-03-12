@@ -1,4 +1,4 @@
-import { CommandClass, add_command } from '../CommandClass';
+import { CommandClass, add_command } from '../index';
 
 export default class ExampleShell extends CommandClass {
   constructor () {

@@ -1,18 +1,8 @@
 import React from 'react';
 import { hterm, lib } from 'hterm-umdjs';
-import * as BrowserFS from 'browserfs';
-
-
 
 class Terminal extends React.Component {
   componentDidMount () {
-
-    const lsfs = new BrowserFS.FileSystem.LocalStorage();
-    BrowserFS.initialize(lsfs);
-    const fs = BrowserFS.BFSRequire('fs');
-    BrowserFS.install(window);
-    console.log(fs);
-
     hterm.defaultStorage = new lib.Storage.Local();
     hterm.Terminal.prototype.overlaySize = function () {};
 
