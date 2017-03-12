@@ -39,10 +39,15 @@ export default class CommandClass {
 
     
     if (isFunction(result != null ? result.then : undefined)) {
-      return result.then(this.bound('exit'));
+      return result.then(() => { this._cancel(); });
     }
 
     return this.exit(result);
+  }
+
+  _cancel () {
+    this.writeln('^C');
+    this.run();
   }
 
   onLine (line) {
