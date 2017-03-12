@@ -67,11 +67,11 @@ export default class CommandClass {
   }
 
   parseLine (line) {
-    let [cmd, ...argv] = Array.from(line.split(' ').map(arg => arg.trim()));
+    let [cmd, ...args] = Array.from(line.split(' ').map(arg => arg.trim()));
 
     return {
       cmd,
-      argString: argv.join(' ')
+      args: args
     }
   }
 
@@ -81,13 +81,10 @@ export default class CommandClass {
       return this._readline.prompt();
     }
 
-    // TODO
     let res = new Promise((resolve) => {
       this[__commands[cmd]](args);
     });
     
-    //console.log(cmd, 'exists... need to implement exec()');
-
     return this._readline.prompt();
   }
 

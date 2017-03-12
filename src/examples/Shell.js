@@ -18,4 +18,9 @@ export default class ExampleShell extends CommandClass {
       this.writeln(`You are ${answer} years old!`);
     });
   }
+
+  @add_command('args')
+  argument_test (args) {
+    this.writeln(args);
+  }
 }
