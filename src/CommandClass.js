@@ -56,10 +56,11 @@ export default class CommandClass {
   }
 
   exit (code) {
-    this.exited_ = true;
-    this.options_.onExit(code);
-
-    return Promise.resolve(code);
+    //this.exited_ = true;
+    //this.options_.onExit(code);
+    console.log(code);
+    return this._readline.prompt();
+    //return Promise.resolve(code);
   }
 
   bound (method) {

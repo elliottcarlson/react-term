@@ -14,7 +14,9 @@ export default class ExampleShell extends CommandClass {
 
   @add_command('age')
   ask_for_age () {
-    this.ask('How old are you?').then((answer) => {
+    let res = this.ask('How old are you?');
+    
+    res.then((answer) => {
       this.writeln(`You are ${answer} years old!`);
     });
   }
