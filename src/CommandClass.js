@@ -2,6 +2,7 @@ import Readline from './Readline';
 import { InputStream, OutputStream } from './Stream';
 import { isFunction } from 'lodash';
 import chalk from 'chalk';
+
 chalk.enabled = true;
 
 const __commands = {};
@@ -10,24 +11,30 @@ export default class CommandClass {
   constructor (hterm, config) {
     if (config == null) { config = {}; }
 
-    this.hterm = hterm;
-    this.readline = null;
+    this._hterm = hterm;
+    this._readline = null;
+
+    this._input = null;
+    this._output = null;
 
     this.prompt = '> ';
   }
 
   run () {
-    let input = new InputStream(this.hterm.io);
-    let output = new OutputStream(this.hterm.io);
+    let input = new InputStream(this._hterm.io);
+    let output = new OutputStream(this._hterm.io);
     let prompt = this.prompt;
 
-    this.readline = Readline.createInterface({ input, output, prompt });
-    this.readline.on('line', this.bound('onLine'));
+    this._readline = Readline.createInterface({ input, output, prompt });
+    this._readline.on('line', this.bound('onLine'));
+
+    this._input = input;
+    this._output = output;
 
     let result = new Promise((function (resolve) {
-      this.readline.on('close', resolve);
+      this._readline.on('close', resolve);
 
-      return this.readline.prompt();
+      return this._readline.prompt();
     }.bind(this)));
 
     
@@ -45,7 +52,7 @@ export default class CommandClass {
       return this.runCommand(cmd, args);
     }
 
-    return this.readline.prompt();
+    return this._readline.prompt();
   }
 
   exit (code) {
@@ -70,19 +77,37 @@ export default class CommandClass {
 
   runCommand (cmd, args) {
     if (!(cmd in __commands)) {
-      this.readline.output.write(`${chalk.bold.red("error:")} command not found\n`);
-      return this.readline.prompt();
+      this._readline.output.write(`${cmd}: command not found\n`);
+      return this._readline.prompt();
     }
 
     // TODO
-    console.log(cmd, 'exists... need to implement exec()');
+    let res = new Promise((resolve) => {
+      this[__commands[cmd]](args);
+    });
+    
+    //console.log(cmd, 'exists... need to implement exec()');
 
-    return this.readline.prompt();
+    return this._readline.prompt();
   }
+
+  writeln (input) {
+    this._readline.output.write(input + '\r\n');
+  }
+
+  write (input) {
+    this._readline.output.write(input);
+  }
+
+  ask (question) {
+    return new Promise ((resolve) => {
+      this._readline.question(question, resolve);
+    });
+  }
+
 }
 
 let add_command = (target, key) => {
-  console.log('add_command...');
   if (!key) {
     return (_target, _key) => {
       __commands[target] = _key;

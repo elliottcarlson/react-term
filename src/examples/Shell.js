@@ -7,9 +7,15 @@ export default class ExampleShell extends CommandClass {
     this.prompt = '[~] $';
   }
 
-
   @add_command('test')
-  test() {
-    this.rl.output('test!\r\n');
+  test () {
+    this.writeln('test!');
+  }
+
+  @add_command('age')
+  ask_for_age () {
+    this.ask('How old are you?').then((answer) => {
+      this.writeln(`You are ${answer} years old!`);
+    });
   }
 }
