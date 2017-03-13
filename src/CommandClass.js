@@ -117,7 +117,7 @@ let add_command = (target, key) => {
     };
   }
 
-  __commands[key] = kay;
+  __commands[key] = key;
 };
 
 export {
