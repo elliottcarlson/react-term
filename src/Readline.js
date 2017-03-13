@@ -727,7 +727,7 @@ export default class Readline extends EventEmitter {
     if (this.cursor < this.line.length) {
       let start = this.line.slice(0, this.cursor);
       let end = this.line.slice(this.cursor, this.line.length);
-      this.line = start + x + end;
+      this.line = start + c + end;
       this.cursor += c.length;
       this._refreshLine();
     } else {

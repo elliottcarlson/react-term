@@ -1,5 +1,5 @@
 {
-  "name": "react-shell-tmp",
+  "name": "react-shell",
   "version": "0.0.2",
   "description": "React Shell Component",
   "repository": {
@@ -50,7 +50,6 @@
   },
   "dependencies": {
     "babel-runtime": "^6.11.6",
-    "browserfs": "^1.2.0",
     "chalk": "^1.1.3",
     "hterm-umdjs": "^1.1.4",
     "line-input-stream": "^1.0.1"
