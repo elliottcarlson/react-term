@@ -20,8 +20,8 @@ class Terminal extends React.Component {
       terminal.getPrefs().set('ctrl-v-paste', true);
       terminal.getPrefs().set('use-default-window-copy', true);
 
-      terminal.getPrefs().set('background-color', '#424242');
-      terminal.getPrefs().set('foreground-color', 'white');
+      terminal.getPrefs().set('background-color', '#282c34');
+      terminal.getPrefs().set('foreground-color', '#abb2bf');
       terminal.getPrefs().set('cursor-blink', true);
 
       let prompt = '>';
