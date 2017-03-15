@@ -95,7 +95,7 @@ export default class CommandClass {
   }
 
   writeln (input) {
-    this._readline.output.write(input + '\r\n');
+    this._readline.output.write(input.replace(/\r?\n/g, '\r\n') + '\r\n');
   }
 
   write (input) {
